@@ -1,0 +1,12 @@
+Nome tabella:
+Users blog
+
+Colonne:
+Id - stringa - VARCHAR(20 ) - PRIM KEY(AUTO_INCREMENT - UNIQUE)
+Nome - stringa - VARCHAR(15) - NOTNULL
+Cognome -stringa - VARCHAR(15) - NOTNULL
+Eta - numero - SMALL 
+DataNascita- data - DATE
+Sesso - stringa - VARCHAR(10)
+Email - stringa - VARCHAR(35) - UNIQUE - NOTNULL
+Cellulare - numero - INT 
