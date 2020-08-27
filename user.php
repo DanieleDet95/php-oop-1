@@ -2,34 +2,50 @@
 
   // Creazione classe user con varie attributi
   class User {
-    public $id;
     public $nome;
     public $cognome;
-    public $eta;
-    public $dataNascita;
-    public $sesso;
     public $email;
-    public $cellulare;
+    protected $password;
+    public $eta;
+    protected $commentare = 'No';
 
     // Implementazione funzione che acquisisce le variabili quando si crea un nuovo user
-    public function __construct($nome,$cognome,$email){
-      $this->setDate($nome,$cognome,$email);
-    }
-
-    // Controllo su variabili
-    public function setDate($nome,$cognome,$email){
-      if ((!empty($nome))||(!empty($cognome))||(!empty($email))) {
-        $this->nome = $nome;
-        $this->cognome = $cognome;
-        $this->email = $email;
-      } else{
-        die('Errore nei dati inseriti');
-      }
+    public function __construct($nome,$cognome,$email,$password,$eta){
+      $this->nome = $nome;
+      $this->cognome = $cognome;
+      $this->email = $email;
+      $this->password = $password;
+      $this->eta = $eta;
     }
 
     // Stampa delle info necessarie
-    public function getInfo(){
-      return 'Id: ' .$this->id .'<br>Nome: '.$this->nome .'<br>Cognome: '.$this->cognome .'<br>Etá: '.$this->eta .'<br>Data di nascita:  '.$this->dataNascita .'<br>Sesso: '.$this->sesso .'<br>Cellulare: '.$this->cellulare;
+    public function getDate(){
+      return [
+        'nome' => $this->nome,
+        'cognome' => $this->cognome,
+        'email' => $this->email,
+        'password' => $this->password,
+        'eta' => $this->eta,
+        'commentare' => $this->commentare,
+      ];
     }
+
+    // Criptare Password
+    public function setPassword($password){
+      $password_criptata = $this->criptaPassword();
+      $this->password = $password_criptata;
+    }
+
+    private function criptaPassword(){
+      // Cripta password
+    }
+
+    // Condizione se puó commentare o no
+    public function canComment(){
+      if ($this->eta > 20) {
+        $this->commentare = 'Si';
+      }
+    }
+
   }
 ?>

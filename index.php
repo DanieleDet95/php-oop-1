@@ -1,32 +1,105 @@
 <?php
+  // Visualizzare gli errori
+  ini_set('display_errors','On');
+  error_reporting(E_ALL);
+
   // Collegamento con la classe user
-  require_once(__DIR__ . '/user.php');
+  require_once(__DIR__ . '/TraitSendEmail.php');
+  require_once(__DIR__ . '/User.php');
+  require_once(__DIR__ . '/Employee.php');
 
-  // Utente1
-  $utente1 = new User('Daniele','Detommaso','Dany195@hotmail.it');
-  $utente1->id = '1';
-  $utente1->eta = '25';
-  $utente1->dataNascita = '14/09/1995';
-  $utente1->sesso = 'Maschio';
-  $utente1->cellulare = '3298826230';
-  echo 'Utente '. $utente1->getInfo() . '<br><br>';
+  // Utenti
+  $array_utenti = [
+    [
+      'nome' => 'Giovanni',
+      'cognome' => 'Bianchi',
+      'email' => 'Giovy33@gmail.com',
+      'password' => '123',
+      'eta' => '18',
+    ],
+    [
+      'nome' => 'Antonio',
+      'cognome' => 'Rossi',
+      'email' => 'Rossy44@gmail.com',
+      'password' => '456',
+      'eta' => '44',
+    ],
+    [
+      'nome' => 'Francesca',
+      'cognome' => 'Verdi',
+      'email' => 'Francy66@gmail.com',
+      'password' => '789',
+      'eta' => '66',
+    ]
+  ];
 
-  // Utente2
-  $utente2 = new User('Pippo','Rossi','Pippo87@hotmail.it');
-  $utente2->id = '2';
-  $utente2->eta = '87';
-  $utente2->dataNascita = '14/09/1987';
-  $utente2->sesso = 'Maschio';
-  $utente2->cellulare = '3294466630';
-  echo 'Utente '. $utente2->getInfo() . '<br><br>';
+  // Stampa di tutti gli utenti
+  foreach ($array_utenti as $utente) {
+    $user = new User($utente['nome'],$utente['cognome'],$utente['email'],$utente['password'],$utente['eta']);
+    $user->canComment();
+    $user_data = $user->getDate();
 
-  // Utente3
-  $utente3 = new User('Minnie','Verdi','Minnie87@hotmail.it');
-  $utente3->id = '3';
-  $utente3->eta = '15';
-  $utente3->dataNascita = '14/09/2005';
-  $utente3->sesso = 'Femmina';
-  $utente3->cellulare = '3111111630';
-  echo 'Utente '. $utente3->getInfo() . '<br><br>';
+    ?>
+      <div>
+        <p>User</p>
+        <ul>
+          <li>Nome: <?php echo $user_data['nome']; ?></li>
+          <li>Cognome:<?php echo $user_data['cognome']; ?></li>
+          <li>Email: <?php echo $user_data['email']; ?></li>
+          <li>Password: <?php echo $user_data['password']; ?></li>
+          <li>Etá: <?php echo $user_data['eta']; ?></li>
+          <li>Commentare: <?php echo $user_data['commentare']; ?></li>
+        </ul>
+      </div>
+    <?php
+  }
+
+  // Utenti
+  $array_employee = [
+    [
+      'nome' => 'Daniele',
+      'cognome' => 'Detommaso',
+      'email' => 'Dany33@gmail.com',
+      'password' => '123',
+      'eta' => '25',
+    ],
+    [
+      'nome' => 'Ciccio',
+      'cognome' => 'Blu',
+      'email' => 'Ciccio44@gmail.com',
+      'password' => '456',
+      'eta' => '12',
+    ],
+    [
+      'nome' => 'Eros',
+      'cognome' => 'Giallo',
+      'email' => 'Eros66@gmail.com',
+      'password' => '789',
+      'eta' => '66',
+    ]
+  ];
+
+  // Stampa di tutti gli Employee
+  foreach ($array_employee as $employer) {
+    $employee = new Employee($employer['nome'],$employer['cognome'],$employer['email'],$employer['password'],$employer['eta']);
+    $employee->setlivello(6);
+    $employee->canComment();
+    $employee_data = $employee->getDate();
+
+    ?>
+      <div>
+        <p>Employee</p>
+        <ul>
+          <li>Nome: <?php echo $employee_data['nome']; ?></li>
+          <li>Cognome:<?php echo $employee_data['cognome']; ?></li>
+          <li>Email: <?php echo $employee_data['email']; ?></li>
+          <li>Password: <?php echo $employee_data['password']; ?></li>
+          <li>Etá: <?php echo $employee_data['eta']; ?></li>
+          <li>Commentare: <?php echo $employee_data['commentare']; ?></li>
+          <li><?php echo $employee->sendEmail($employee->email,'Conferma mail'); ?></li>
+        </ul>
+      </div>
+    <?php
+  }
 
 ?>
